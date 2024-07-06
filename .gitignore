@@ -4,7 +4,8 @@ bower_components
 .vscode
 .DS_Store
 
+# commented so we can install from github
 # ouput dir
-dist/
-lib/
-es/
+#dist/
+#lib/
+#es/
