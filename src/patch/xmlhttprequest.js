@@ -292,6 +292,7 @@ const Xhook = function () {
     };
 
     const beforeHooks = hooks.listeners("before");
+    let beforeHooksLength = beforeHooks.length;
     //process beforeHooks sequentially
     var process = function () {
       if (!beforeHooks.length) {
@@ -325,6 +326,12 @@ const Xhook = function () {
         mergeObjects(userResponse, response);
         setReadyState(3);
       };
+
+      // if a new hook has appeared since we started, add it to the end of beforeHooks
+      if (hooks.listeners("before").length > beforeHooksLength) {
+        beforeHooks.push(hooks.listeners("before")[beforeHooks.length - 1]);
+        beforeHooksLength += 1;
+      }
 
       const hook = beforeHooks.shift();
       //async or sync?
